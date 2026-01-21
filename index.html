@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>Elmaland Network</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="hero">
+  <!-- Arka plan video -->
+  <video autoplay muted loop class="bg-video">
+    <source src="https://cdn.coverr.co/videos/coverr-minecraft-landscape-9712/1080p.mp4" type="video/mp4">
+  </video>
+
+  <div class="overlay fade-in">
+    <h1 class="logo">ELMALAND</h1>
+    <p>Yeni Nesil Minecraft Sunucusu</p>
+
+    <div class="buttons">
+      <button class="btn" onclick="copyIP()">IP: elmaland.falix.gg</button>
+      <a href="#" class="btn secondary">Discord</a>
+    </div>
+
+    <div class="players">
+      👥 Online Oyuncu: <span id="players">Yükleniyor...</span>
+    </div>
+
+    <span id="copied">IP Kopyalandı!</span>
+  </div>
+</header>
+
+<section class="info">
+  <div class="card">
+    <h2>⚔️ MODLAR</h2>
+    <p>Survival • PvP • SkyBlock</p>
+  </div>
+
+  <div class="card">
+    <h2>🛡️ ANTICHEAT</h2>
+    <p>GrimAC – Hileye sıfır tolerans</p>
+  </div>
+
+  <div class="card">
+    <h2>🌍 SÜRÜM</h2>
+    <p>1.8 – 1.20+</p>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 Elmaland Network</p>
+</footer>
+
+<script>
+function copyIP() {
+  navigator.clipboard.writeText("elmaland.falix.gg");
+  document.getElementById("copied").style.opacity = "1";
+  setTimeout(() => {
+    document.getElementById("copied").style.opacity = "0";
+  }, 2000);
+}
+
+/* Oyuncu sayısı (mcstatus.io API) */
+fetch("https://api.mcstatus.io/v2/status/java/elmaland.falix.gg")
+  .then(res => res.json())
+  .then(data => {
+    if (data.online) {
+      document.getElementById("players").innerText =
+        data.players.online + " / " + data.players.max;
+    } else {
+      document.getElementById("players").innerText = "Offline";
+    }
+  })
+  .catch(() => {
+    document.getElementById("players").innerText = "Hata";
+  });
+</script>
+
+</body>
+</html>
